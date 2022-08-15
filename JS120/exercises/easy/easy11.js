@@ -1,0 +1,21 @@
+class Banner {
+  constructor(message) {
+    this.message = message;
+  }
+
+  displayBanner() {
+    console.log([this.horizontalRule(), this.emptyLine(), this.messageLine(), this.emptyLine(), this.horizontalRule()].join("\n"));
+  }
+
+  horizontalRule() {
+    return `+-${'-'.repeat(this.message.length)}-+`
+  }
+
+  emptyLine() {
+    return `| ${' '.repeat(this.message.length)} |`
+  }
+
+  messageLine() {
+    return `| ${this.message} |`
+  }
+}

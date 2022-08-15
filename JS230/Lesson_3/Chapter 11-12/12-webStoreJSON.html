@@ -1,0 +1,18 @@
+<html></html>
+
+<script>
+  let request = new XMLHttpRequest();
+
+  let data = { name: 'Hat', sku: 'hat100', price: 400 }
+  let json = JSON.stringify(data);
+
+  request.open('POST', `https://ls-230-web-store-demo.herokuapp.com/v1/products`);
+  request.setRequestHeader('Content-Type', `application/json; charset=utf-8`);
+  request.setRequestHeader('Authorization', `token AUTH_TOKEN`);
+
+  request.addEventListener('load', () => {                                           // Adding this Checks to see if your code executed
+    console.log(`This product was added: ${request.responseText}`);
+  });
+
+  request.send(json);
+</script>

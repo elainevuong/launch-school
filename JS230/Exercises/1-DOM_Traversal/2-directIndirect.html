@@ -1,0 +1,73 @@
+<div id="1">
+  <h1 id="2">Hello, <em id="3">World</em></h1>
+  <p id="4">
+    Welcome to wonderland. This is an
+    <span id="5">awesome</span> place.
+  </p>
+  <a href="#" id="6"><strong id="7">Enter</strong></a>
+  <div id="8"><p id="9"><a href="#" id="10">Go back</a></p></div>
+</div>
+
+<script>
+  function walk(node, callback) {
+    callback(node);
+    for (let index = 0; index < node.childNodes.length; index++) {
+      walk(node.childNodes[index], callback)
+    }
+  }
+
+  function countAllChildren(parent) {
+    let counter = 0;
+
+    parent.childNodes.forEach(child => {
+      walk(child, node => counter++);     
+    });
+
+    return counter;
+  }
+
+  function countDirect(parent) {
+    return parent.childNodes.length;
+  }
+
+  function childNodes(number) {
+    let parentNode = document.getElementById(String(number));
+    if (!parentNode) return undefined;
+
+    let allChildrenNum = countAllChildren(parentNode);
+    console.log(allChildrenNum);
+    let directNum = countDirect(parentNode);
+    let indirectNum = allChildrenNum - directNum;
+
+    return [directNum, indirectNum];
+  }
+</script>
+
+
+<!--
+Div Node            Direct 9, Indirect 12
+  Empty Node        
+  Header Node       Direct 2, Indirect 1
+    Text Node       
+    Emphasis Node   Direct 1, Indirect 0
+      Text Node     
+  Empty Node        
+  Paragraph Node    Direct 3, Indirect 1
+    Text Node       
+    Span Node       Direct 1, Indirect 0
+      Text Node     
+    Text Node       
+  Empty Node        
+  A Node            Direct 1, Indirect 1
+    Strong Node     Direct 1, Indirect 0
+      Text Node     
+  Empty Node        
+  Div Node          Direct 1, Indirect 2
+    Paragraph Node  Direct 1, Indirect 1
+      A Node        Direct 1, Indirect 0
+        Text Node   
+  Empty Node        
+
+Visualizing the Walk Function - we want to start walking at each child, because the callback WILL include the parent element. 
+
+-->

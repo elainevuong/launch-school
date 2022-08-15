@@ -1,0 +1,75 @@
+<!--
+Implement a form for adding new staff, and then use the booking app 
+API to add the staff to the database. Your implementation should handle 
+the different possible responses of the server and inform the user of the outcome.
+-->
+<style>
+  fieldset {
+    border-color: rgb(211, 211, 211);
+    border-style: double;
+  }
+  .invisible {
+    border: none;
+  }
+  form {
+    color: rgb(204, 86, 94);
+  }
+  input {
+    border-color: rgb(211, 211, 211);
+  }
+  #submit {
+    background-color: rgb(204, 86, 94);
+    color: white;
+    width: 90px;
+    height: 40px;
+  }
+</style>
+<form action='/api/staff_members' method="post">
+	<fieldset>
+		<h1>Add Staff</h1>
+		<fieldset class='invisible'>
+			<label for="email">Email :</label>
+			<input type="email" name="email" id="email"/>
+		</fieldset>
+		
+		<fieldset class='invisible'>
+			<label for="name">Name :</label>
+			<input type="text" name="name" id="name"/>
+		</fieldset>		
+
+		<fieldset class='invisible'>
+			<input id='submit' type="submit" value="Submit" />
+		</fieldset>
+  </fieldset>
+</form>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let form = document.querySelector('form');
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      let formData = {};
+      for (let index = 0; index < form.elements.length; index++) {
+        let element = form.elements[index];
+        if (element.tagName === 'INPUT') {
+          let key = element.name;
+          let value = element.value;
+          formData[key] = value;
+        }
+      }
+      let check = Object.values(formData).every(value => value !== '');
+      if (check) {
+        let data = new FormData(form);
+        let request = new XMLHttpRequest();
+        request.open(form.method, form.getAttribute('action'));
+        request.responseType = 'json'; // include this, otherwise the server will send back a response in Text format
+        request.addEventListener("load", event => {
+          console.log(request.response);
+          alert(`Successfully created staff with id: ${request.response.id}`)
+        })
+        request.send(data);
+      } else {
+        alert(`Staff can not be created. Check your inputs.`);
+      }
+    })
+  }) 
+</script>

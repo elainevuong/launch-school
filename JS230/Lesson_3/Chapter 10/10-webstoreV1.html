@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="9-webstore.css" />
+<h1>Existing Page</h1>
+<div id="store"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let request = new XMLHttpRequest(); 
+    let store = document.getElementById('store');
+
+    request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products')
+
+    request.addEventListener('load', event => {  // Add the Response received to Store
+      let htmlResponse = request.response;
+      store.innerHTML = htmlResponse;
+    });
+    request.send();
+
+    // Listening for Clicks within the Embedded Content
+    store.addEventListener('click', event => {              // Listening for Clicks
+      let linkClicked = event.target;
+      if (linkClicked.nodeName === 'A') {                  // Only Listen for Clicks on the Links
+        event.preventDefault();                             // Prevent the Default Browser Action of Following the Link
+
+        let request = new XMLHttpRequest();                 // Create a new XMLHttpRequest();
+        let urlPath = linkClicked.getAttribute('href');
+
+        request.open('GET', `https://ls-230-web-store-demo.herokuapp.com${urlPath}`);
+        request.addEventListener('load', event => {         // Wait for the Request to finish Loading
+          let responseData = request.response;
+          store.innerHTML = responseData;
+        })
+
+        request.send();
+      }
+    })
+
+    store.addEventListener('submit', event => { 
+      event.preventDefault();                   
+
+      let form = event.target;
+      let request = new XMLHttpRequest();
+      let data = new FormData(form);
+      let urlPath = form.getAttribute('action');
+
+      request.open('POST', `https://ls-230-web-store-demo.herokuapp.com${urlPath}`);
+      request.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+      request.addEventListener('load', event => {
+        let responseData = request.response;
+        store.innerHTML = responseData;
+      })
+
+      request.send(data);
+    })
+  })
+</script>
+
+
+<!-- 
+1. Use JavaScript to fetch the list of products from the web store, and insert it into the div with an id of store. 
+   The Webstore Products are located at the following URL: 'https://ls-230-web-store-demo.herokuapp.com/products'
+
+2. Add an Event Handler that listens for clicks within the embedded content. 
+   The handler should load the new page with XMLHttpRequest and insert it into the current page.
+
+3. What prevents the form submission from working? Investigate the problem with the web developer tools in your browser.
+   Answer - The form submits a POST request to http://s.codepen.io/products/1 and receives a 404 response
+
+4. Make changes to the JavaScript to submit the edit form using XMLHttpRequest. Once your code is working, 
+   you should see the message — "You must be logged in to do that." — when you try to submit the form. 
+-->

@@ -1,0 +1,7 @@
+.hotdog p {
+  background: brown;
+}
+
+.hotdog p.mustard {
+  background: yellow;
+}

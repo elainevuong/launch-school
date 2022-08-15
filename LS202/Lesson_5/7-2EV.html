@@ -1,0 +1,40 @@
+<style>
+  fieldset {
+    border: none;
+  }
+  dt {
+    display: inline-block;
+  }
+
+  dd {
+    display: inline-block;
+  }
+</style>
+<form action="#" method="post">
+  <fieldset>
+    <dl>
+      <fieldset>
+        <dt><label for="first_name">First Name</label></dt>
+        <dd><input type="text" name="first_name" id="first_name" required /></dd>
+      </fieldset> 
+
+      <fieldset>
+        <dt><label for="last_name">Last Name</label></dt>
+        <dd><input type="text" name="last_name" id="last_name" required /></dd>
+      </fieldset>
+      
+      <fieldset>
+        <dt><label for="email">Email Address</label></dt>
+        <dd> <input type="email" name="email" id="email"
+                  autocomplete="off" autocorrect="off"
+                  autocapitalize="none" required /></dd>
+      </fieldset>
+
+      <fieldset>
+        <dt><label for="phone">Phone Number</label></dt>
+        <dd><input type="tel" name="phone" id="phone" required /></dd>    
+      </fieldset>         
+    </dl>
+    <input type="submit" value="Send" />
+  </fieldset>
+</form>

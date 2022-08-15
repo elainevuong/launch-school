@@ -1,0 +1,20 @@
+<!-- Adding a new book to a book-catalog demo application, 'https://ls-230-book-catalog.herokuapp.com/books' using POST URI Encoding-->
+<script>
+  let request = new XMLHttpRequest();
+  request.open('POST', 'https://ls-230-book-catalog.herokuapp.com/books');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // sets the Content Type Header
+
+  let title = 'Klara and the Sun'
+  let author = 'Kazuo Ishiguro'
+
+  let data = `title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`;
+
+  request.addEventListener('load', event => {
+    if (request.status === 201) {
+      console.log(`The book ${title} written by ${author} was added successfully!`);
+      console.log(request.response);
+    }
+  })
+
+  request.send(data);
+</script>

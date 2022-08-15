@@ -1,0 +1,45 @@
+<ul>
+  <li><a href="#">Apples</a></li>
+  <li><a href="#">Bananas</a></li>
+  <li><a href="#">Oranges</a></li>  
+</ul>
+
+<form action="#" method="post">
+  <fieldset>
+    <input type="text">
+    <input type="submit" value="Choose">
+  </fieldset>
+</form>
+
+<p>Choose your favorite fruit!</p>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
+
+<!--
+$(function() {
+  let $message = $('p')
+  let fruitList = document.querySelector('ul');
+
+  $('ul').on('click', function(event) {
+    event.preventDefault();
+    let $anchor = $(event.target);
+    $message.text(`You favourite fruit are: ${$anchor.text()}`);
+  });
+
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+    let newFruitName = $('form input').val();
+    let newLine = document.createElement('li');
+    let newLink = document.createElement('a');
+    newLink.setAttribute('href', '#');
+    newLink.innerHTML = newFruitName
+    newLine.appendChild(newLink);
+    fruitList.appendChild(newLine);
+
+    $message.text(`Added Fruit: ${newFruitName} to the list!`);
+    event.currentTarget.reset();
+  })
+})
+-->

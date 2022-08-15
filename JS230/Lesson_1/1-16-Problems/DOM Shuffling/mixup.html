@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Mixup Fixer</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="site.css" />
+  </head>
+  <body>
+    <main>
+      <h1><a href="#">My Site!</a></h1>
+      <section id="content">
+        <article>
+          <header>
+            <h1>Welcome to my site!</h1>
+            <h2>I hope you stay a while.</h2>
+          </header>
+          <p>
+            This is my personal slice of the Internet, where I post my ideas and
+            projects that I've completed or am currently working on. All are
+            patent pending.
+          </p>
+        </article>
+        <figure>
+          <img src="images/baby_mop.jpg" alt="The baby mop" />
+          <figcaption>
+            The chin stick &ndash; stay upright while sleeping!
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="images/chin_stick.jpg" alt="The chin stick" />
+          <figcaption>
+            The baby mop &ndash; great for wet and dry mopping!
+          </figcaption>
+        </figure>
+      </section>
+    </main>
+
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <footer>
+      <p>&copy; 2020 me. All projects are patent pending</p>
+    </footer>
+  </body>
+</html>
+<script>
+  // Move Header Above Main
+  let [ main, header ] = document.body.children;
+  main.before(header); // insert header before main (read from right to left)
+
+  // Move H1 Before Nav
+  let h1 = document.querySelector('h1');
+  let nav = document.querySelector('nav');
+  nav.before(h1);       // inserts h1 before nav (read from right to left)
+  // header.insertBefore(h1, nav);
+
+  // Swap Figcaptions
+  let [ chinCaption, mopCaption ] = [...document.querySelectorAll('figcaption')]
+  let [ mopImg, chinImg ] = [...document.querySelectorAll('img')]
+  chinImg.after(chinCaption);  // chinCaption after chinImg (read from right to left)
+  mopImg.after(mopCaption);    // mopCaption after mopImg   (read from right to left)
+
+  // Move ChinFig and then MopFig
+  let article = document.querySelector('article');
+  let [ mopFig, chinFig ] = [...document.querySelectorAll('figure')];
+  article.appendChild(chinFig);
+  article.appendChild(mopFig);
+</script>

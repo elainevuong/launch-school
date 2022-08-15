@@ -1,0 +1,36 @@
+<form id="form">
+  <p><label>Title: <input type="text" name="title"></label></p>
+  <p><label>Author: <input type="text" name="author"></label></p>
+  <p><button type="submit">Submit</button></p>
+</form>
+
+<script>
+  let form = document.getElementById('form');
+
+  form.addEventListener('submit', event => {   // Bind to the form's submit event to handle the submit button being clicked
+    event.preventDefault();                    // Stop the Browser from Submitting the Form
+
+    let keysAndValues = [];
+
+    for (let index = 0; index < form.elements.length; index++) {
+      let currentElement = form.elements[index]
+
+      if (currentElement.type !== 'submit') {
+        let key = encodeURIComponent(currentElement.name);                  // encode the key and value
+        let value = encodeURIComponent(currentElement.value);               // `value` - refers to the inputted value for the form
+        keysAndValues.push(`${key}=${value}`);                       // add the string `${key}=${value}`
+      }
+    }
+    let data = keysAndValues.join('&');                              // join the Key Value Pairs with a &
+
+    let request = new XMLHttpRequest();
+    request.open('POST', 'https://ls-230-book-catalog.herokuapp.com/books');
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  // Using a `POST` Request - set the `Content-type` using `setRequestHeader
+    request.addEventListener('load', () => {
+      if (request.status === 201) {
+        console.log(`This book was added to the catalog: ${request.responseText}`);
+      }
+    })
+    request.send(data);
+  })
+</script>

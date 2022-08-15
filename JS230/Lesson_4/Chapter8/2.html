@@ -1,0 +1,39 @@
+<ul>
+  <li><a href="#">Apples</a></li>
+  <li><a href="#">Bananas</a></li>
+  <li><a href="#">Oranges</a></li>
+</ul>
+
+<p>Click on your favorite fruit!</p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
+<!--
+  // jQuery Method
+$(function () { // DOMContentLoaded
+  let $p = $('p');
+
+  $('a').on("click", function(event) {
+    event.preventDefault();
+    let $anchor = $(this);              // wraps the `event.target` into a jQuery Object
+    $p.text(`Your favourite fruit are: ${$anchor.text()}`);
+  });
+});
+
+  // vanilla JavaScript
+  // `this` - inside of an Arrow Function, it inherits its context - meaning it's context is the global object
+  // Or the Window Object
+
+document.addEventListener('DOMContentLoaded', () => {
+  let links = [...document.querySelectorAll('a')];
+  let paragraph = document.querySelector('p');
+
+  links.forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      paragraph.innerHTML = `Your favourite fruit are: ${event.target.textContent}`;
+    })
+  })
+})
+
+-->        

@@ -1,0 +1,57 @@
+html, body {
+  background: #5bccb3;                             /* sets the background colour*/
+  color: #16997c;                                  /* sets the text colour*/
+  font: normal 16px Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 25px;
+}
+
+main {
+  background: white;
+  box-sizing: border-box;                            /* height, width, excludes margins */
+  display: block;                                   
+  margin: 0 auto;                                    /* centers the main block */
+  max-width: 450px;
+  padding: 20px;
+}
+
+h1 {
+  color: #cc183e;                                  /* makes it Red */
+  text-align: center;                                /* aligns the Groceries Heading  */
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0 0 25px;
+}
+
+label {
+  display: block;                                    /* makes the label `block` so that it appears on its own line!*/
+  font-weight: bold;                                 /* bolds the text*/
+  padding: 0 0 5px;                                  /* adds padding at the bottomt*/
+}
+
+input[type="text"] {
+  border: 1px solid #cecece;
+  box-sizing: border-box;                            /* height, width, excludes margins */
+  font: normal 24px Georgia, Palatino, serif;
+  height: 40px;
+  width: 60px;
+  margin: 0 0 20px;
+  padding: 5px;
+}
+
+input#name {
+  width: 100%;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 15px 0; 
+  background: linear-gradient(to bottom, #cc183e 0%, #780e24 100%);
+  border-radius: 15px;
+  color: white;
+  font: normal 20px Helvetica, Arial, sans-serif;
+}

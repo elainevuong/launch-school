@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>On the River</title>
+  </head>
+  <body>
+    <div id="page1">
+      <div class="intro">
+        <p>The sun is low,</p>
+      </div>
+      <p>The waters flow,</p>
+    </div>
+    <div id="page2">
+      <div class="intro">
+        <p>My boat is dancing to and fro.</p>
+      </div>
+      <p>The eve is still,</p>
+    </div>
+    <div id="page3">
+      <div class="intro">
+        <p>Yet from the hill</p>
+      </div>
+      <p>The killdeer echoes loud and shrill.</p>
+    </div>
+  </body>
+</html>
+<!-- 
+  Using this task breakdown, rewrite the solution to the first problem. 
+  The core of your solution should be a function named getElementsByTagName 
+  that returns an array of all elements with a given tag name. You should 
+  then add the CSS class article-text to each paragraph in the array. 
+-->
+<script>
+  function getElementsByTagName(tagName) {
+    let elements = [];
+    walk(document, tagNameMatch);
+    return elements;
+    function tagNameMatch(node) {
+      if (node.nodeName === String(tagName)) {
+        elements.push(node);
+      }
+    }
+  }
+
+  function walk (node, callback) {
+    callback(node);
+    for (let index = 0; index < node.childNodes.length; index++) {
+      walk(node.childNodes[index], callback);
+    }
+  }
+
+  let paragraphs = getElementsByTagName('P');
+  paragraphs.forEach(paragraph => paragraph.classList.add('article-text'));
+</script>

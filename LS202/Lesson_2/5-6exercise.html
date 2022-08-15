@@ -1,0 +1,42 @@
+<style>
+  section {
+    background-color: yellow;
+    border: 1px solid red;
+    box-sizing: content-box;
+    display: inline-block;
+    height: 400px;
+    margin: 0;
+    padding: 20px;
+    width: 900px;
+  }
+
+  article {
+    background-color: lime;
+    border: 1px solid blue;
+    display: inline-block;   /* allows the blocks to be side by side */
+    box-sizing: border-box;  /* border-box - includes the padding and the border */
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+    width: 50%;
+  }
+</style>
+<section>
+  <article>content</article><article>more content</article>
+</section>
+
+<!-- 
+  Will the following code display the two article boxes side-by-side? 
+  If not, why not? How would you fix it so that it places the boxes side-by-side?
+  
+
+  The browser won't display the article boxes side-by-side since they are block elements. 
+  Even if we could place the block elements side-by-side, they won't fit inside the section 
+  because the total width of each article is 50% of the width plus 22 pixels for its padding and border.
+
+  The first change we must make is to add display: inline-block; to the CSS article 
+  selector, which lets us position two or more articles side-by-side, provided 
+  there is room. To make them fit, we must set the actual width (including padding 
+  and the border) to 50% of the available space, so we also add box-sizing: border-box; 
+  to the article selector.
+-->

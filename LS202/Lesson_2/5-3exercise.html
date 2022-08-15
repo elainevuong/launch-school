@@ -1,0 +1,51 @@
+<style>
+  div {
+    background-color: lightgray;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+
+  em {
+    border: 4px solid red;
+    box-sizing: content-box;
+    display: inline;
+    height: 300px;
+    margin: 20px 19px 10px 11px;
+    padding: 10px 20px;
+    width: 500px;
+  }
+</style>
+<div>
+  <em>content</em>
+</div>
+
+<!--
+This code is a bit tricky. Since the em element is inline, the browser will IGNORE the 
+width, height, and top and bottom margins specified in the CSS. 
+
+Inline - IGNORES height, width specified in the CSS, and top/bottom margins in the CSS. 
+For this reason, we cannot calculate the amount of space that any given em will 
+take unless we know the ACTUAL WIDTH AND HEIGHT OF THE CONTENT
+
+If we assume that the em requires a 50px width, then the div element needs 130 pixels horizontally:
+50 pixels for the assumed width
+8 pixels for the left and right borders
+40 pixels for the left and right padding
+19 pixels for the right margin
+11 pixels for the left margin
+2 pixels for the left and right borders of the div
+
+
+If we assume that the em requires a 20px height, then the div needs 50 pixels vertically:
+20 pixels for the assumed height
+8 pixels for the top and bottom borders
+20 pixels for the top and bottom padding
+0 pixels for the top and bottom margins
+2 pixels for the top and bottom borders of the div
+Since the div uses box-sizing, it must have a width of at least 130px and a height of at least 50px.
+
+Keep in mind that the top and bottom padding and borders may intersect with content above and below the em element.
+-->

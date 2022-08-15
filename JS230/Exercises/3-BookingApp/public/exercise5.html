@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise 5</title>
+    <style>
+      dt {
+        float: left;
+        clear: left;
+      }
+      dt::after {
+        content: ":"; 
+      }
+      dd {
+        margin: 0 0 0 50px; 
+        padding: 0 0 0.5em 0; 
+      }
+      div {
+        background: #ccc;
+        padding-left: 15px;
+        padding-top: 15px;
+        padding-bottom: 5px;
+        margin-top: 15px
+      }
+      #scheduleSubmit {
+        background: white;
+        color: black;
+        border: 1px darkgrey solid;
+        border-radius: 5px;
+      }
+    </style>
+    <script src="exercise5.js"></script>
+  </head>
+  <body>
+    <h1>Schedules</h1>
+    <form method="POST" action="/api/bookings" id="bookingForm">
+      <dl>
+        <dt><label for="id">Please select one schedule</label></dt>
+        <dd><select id="id" name="id"></select></dd>
+        <dt><label for="student_email">Email</label></dt>
+        <dd>
+          <input type="email" id="student_email" name="student_email" />
+          <input type="submit" value="Submit" id='scheduleSubmit'/>
+        </dd>
+      </dl>
+    </form>
+    <div hidden="true">
+      <h1>Please provide new student details</h1> 
+      <form method="POST" action="/api/students" id="addStudentForm">
+        <dl>
+          <dt><label for="email">Email</label></dt>
+          <dd><input type="email" id="email" name="email"></dd>
+          <dt><label for="name">Name</label></dt>
+          <dd><input type="text" id="name" name="name"></dd>
+          <dt><label for="booking_sequence">Booking Sequence</label></dt>
+          <dd><input type="text" id="booking_sequence" name="booking_sequence"></dd>
+          <input type="submit" value="Submit" id='studentSubmit'/>
+        </dl>
+      </form>
+    </div>
+  </body>
+</html>

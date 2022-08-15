@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Nodes to Array</title>
+  </head>
+  <body>
+    <header id="1"></header>
+    <main id="2"></main>
+    <footer id="3"></footer>
+  </body>
+</html>
+<script>
+  function nodesToArr() {
+    return getTagChild(document.body);
+
+    function getTagChild(node) {
+      if (node.children) {
+        return [ node.nodeName, [...node.children].map(child => getTagChild(child))];
+      } else {
+        return [ node.nodeName, []];
+      }
+    }
+  }
+</script>

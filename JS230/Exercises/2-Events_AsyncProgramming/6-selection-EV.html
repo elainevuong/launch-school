@@ -1,0 +1,56 @@
+<form id="selection-filters" method="post" action="#">
+  <select id="animal-classifications">
+    <option value="Classifications" selected>Classifications</option>
+    <option value="Vertebrate" class='Bear Turtle Whale Salmon Ostrich'>Vertebrate</option>
+    <option value="Warm-blooded" class='Bear Whale Ostrich'>Warm-blooded</option>
+    <option value="Cold-blooded" class='Turtle Salmon'>Cold-blooded</option>
+    <option value="Mammal" class='Bear Whale'>Mammal</option>
+    <option value="Bird" class='Ostrich'>Bird</option>
+  </select>
+  <select id="animals">
+    <option value="Animals" selected>Animals</option>
+    <option value="Bear" class='Vertebrate Warm-blooded Mammal'>Bear</option>
+    <option value="Turtle" class='Vertebrate Cold-blooded'>Turtle</option>
+    <option value="Whale" class='Vertebrate Warm-blooded Mammal'>Whale</option>
+    <option value="Salmon" class='Vertebrate Cold-blooded'>Salmon</option>
+    <option value="Ostrich" class='Vertebrate Warm-blooded Bird'>Ostrich</option>    
+  </select>
+  <button id="clear">Clear</button>  
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let classifications = document.getElementById('animal-classifications');
+    let allClassifications = Array.from(classifications.querySelectorAll('option'))
+    let animals = document.getElementById('animals');
+    let allAnimals = Array.from(animals.querySelectorAll('option'))
+    let form = document.getElementById('selection-filters');
+    let clearButton = document.querySelector('button');
+
+    classifications.addEventListener('change', event => {
+      let selection = event.target.value;
+      allAnimals.forEach(animal => {
+        if (!animal.classList.contains(selection)) {
+          animal.removeAttribute('selected');
+          animal.setAttribute('hidden', '');
+        }
+      })
+    })
+
+    animals.addEventListener('change', event => {
+      let selection = event.target.value;
+      allClassifications.forEach(classification => {
+        if (!classification.classList.contains(selection)) {
+          classification.removeAttribute('selected');
+          classification.setAttribute('hidden', '');
+        }
+      })
+    })    
+
+    clearButton.addEventListener('click', event => {
+      [...allClassifications, ...allAnimals].forEach(selection => {
+        selection.removeAttribute('hidden');
+      })
+    })
+  });
+</script>

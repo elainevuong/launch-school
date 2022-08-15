@@ -1,0 +1,28 @@
+<!-- Using the following HTML Form, use a POST Request to submit the Form Information to
+     'https://ls-230-book-catalog.herokuapp.com/books' using the FormData Object -->
+
+<form id="form">
+  <p><label>Title: <input type="text" name="title"></label></p>
+  <p><label>Author: <input type="text" name="author"></label></p>
+  <p><button type="submit">Submit</button></p>
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let form = document.getElementById('form');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+
+      let data = new FormData(form); // call the FormData Constructor and pass in `form`
+
+      let request = new XMLHttpRequest();
+      request.open('POST', 'https://ls-230-book-catalog.herokuapp.com/books');
+      request.addEventListener('load', event => {
+        if (request.status === 201) {
+          console.log(`This book was added to the log! ${request.responseText}`);
+        }
+      })
+      request.send(data);           // Pass in the Data to the Server
+    });
+  });
+</script>

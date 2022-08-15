@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise 4</title>
+    <style>
+      .buttons {
+        color: white;
+        width: 100px;
+        height: 50px;
+        border-radius: 5px;
+      }
+      #addButton {
+        background: rgb(127, 180, 219);
+        border: rgb(127, 180, 219);
+      }
+      #submitButton {
+        background: #f0595b;
+        border: #f0595b;
+      }
+      dl {
+        padding: 0.5em;      
+      }
+      legend {
+        font-weight: bold;
+      }
+      dt {
+        float: left;
+        clear: left;
+        width: 100px;         /* sets the width of the entire dt element */
+        text-align: right;
+        font-weight: bold;
+        color: #f0595b;
+      }
+      dt::after {
+        content: ":";         /* adds the colon after each dt element */
+      }
+      dd {
+        margin: 0 0 0 110px;  /* top, right, bottom, left */
+        padding: 0 0 0.5em 0; 
+      }
+      select {
+        width: 145px;
+      }
+      fieldset {
+        margin: 1em 0 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" class='buttons' id="addButton">Add more schedules</button>
+    <form action="/api/schedules" method="POST">
+      <fieldset class='template'>
+        <legend>Schedule 1</legend>
+        <dl>
+          <dt><label for='1staff_name'>Staff Name</label></dt>
+          <dd><select name='staff_name' id='1staff_name' ></select></dd>
+
+          <dt><label for='1date'>Date</lavel></dt>
+          <dd><input type="text" name="date" id="1date" placeholder='mm-dd-yy'/></dd>
+
+          <dt><label for='1time'>Time</label></dt>
+          <dd><input type='text' name='time' id='1time' placeholder='hh:mm'/></dd>
+        </dl>
+      </fieldset>
+      <input type="submit" value="Submit" class='buttons' id="submitButton"/>
+    </form>
+  </body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const STAFFIDLOOKUP = {};
+    populateStaffMembers();
+    document.querySelector('select').addEventListener('change', selectStaffMember);
+    document.querySelector('button').addEventListener("click", duplicateForm);
+    document.querySelector('form').addEventListener('submit', submitForm);
+
+    function populateStaffMembers() {
+      let staffNames = document.getElementById("1staff_name");
+      let request = new XMLHttpRequest();
+      request.open("GET", "/api/staff_members");
+      request.responseType = 'json';
+      request.addEventListener("load", event => {
+        if (request.status === 200) {
+          let staffMembers = request.response;
+          staffMembers.forEach((staff, index) => {
+            let option = document.createElement('option');
+            option.setAttribute("value", staff.name);
+            option.innerHTML = staff.name;
+
+            if (index === 0) {
+              option.setAttribute("selected", true);
+            }
+
+            staffNames.appendChild(option);
+
+            let key = staff.name;
+            let value = staff.id;
+            STAFFIDLOOKUP[key] = value;
+
+          })
+        }
+      })
+      request.send();
+    }
+
+    function selectStaffMember() {
+      let select = document.querySelector('select');
+      [...select.options].forEach(option => option.removeAttribute('selected')); // removes existing selected property
+      let selectedItem = select.options[select.selectedIndex];
+      selectedItem.setAttribute('selected', true); // adds selected property to currently selected element
+    }
+
+    function duplicateForm() {
+      let template = document.querySelector('.template');
+      let submitButton = document.getElementById("submitButton");
+
+      let copy = template.cloneNode(true);
+      let numTemplates = document.querySelectorAll('fieldset').length + 1;
+
+      copy.querySelector('legend').innerHTML = `Schedule ${numTemplates}`;
+      walk(copy, node => {
+        let checkNodes = ["LABEL", "INPUT", "SELECT"]
+        if (checkNodes.includes(node.nodeName)) {
+          adjustDuplicateIDs(node, numTemplates);
+        }
+      })
+
+      template.parentNode.insertBefore(copy, submitButton);
+    }
+
+    function adjustDuplicateIDs(node, prefix) {
+      let checkAttributes = ['for', 'id']
+      checkAttributes.forEach(attribute => {
+        if (node.getAttribute(attribute)) {
+          let currentValue = String(node.getAttribute(attribute)).slice(1);
+          let newValue = `${prefix}${currentValue}`
+          node.setAttribute(attribute, newValue);
+        }
+      })
+    }
+
+    function walk(node, callback) {
+      callback(node);
+      for (let index = 0; index < node.children.length; index++) {
+        walk(node.children[index], callback);
+      }
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+      let form = document.querySelector('form');
+      let data = JSON.stringify(createJSONRequest(form));
+      let request = new XMLHttpRequest();
+      request.open(`${form.method}`, `${form.action}`);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); 
+      request.addEventListener("load", event => {
+        if (request.status === 201) {
+          form.reset();
+          alert(request.response);
+        } else if (request.status === 400) {
+          alert(request.response);
+        }
+      })
+      request.send(data);
+    }
+
+    function createJSONRequest(form) {
+      let data = { "schedules": []};
+      let currentObj = {};
+      walk(form, node => {
+        if (node.nodeName === "FIELDSET") {
+          addCurrentObj(data, currentObj);
+          currentObj = {};
+        }
+
+        if (node.nodeName === 'OPTION' && node.hasAttribute('selected')) {
+          let name = node.value;
+          let staffID = getStaffID(name);
+          currentObj["staff_id"] = Number(staffID)
+        }
+
+        if (node.nodeName === 'INPUT') {
+          let name = node.getAttribute('name');
+          if (name === 'date' || name === 'time') {
+            currentObj[String(name)] = String(node.value);            
+          }
+        }
+      })
+      addCurrentObj(data, currentObj);
+      return data;
+    }
+
+    function addCurrentObj(data, currentObj) {
+      if (Object.keys(currentObj).length > 0) {
+        data.schedules.push(currentObj);
+      }
+    }
+
+    function getStaffID(name) {
+      return STAFFIDLOOKUP[name]
+    }
+  })
+</script>

@@ -1,0 +1,60 @@
+<!-- Make changes to the JavaScript to submit the edit form using XMLHttpRequest -->
+
+<link rel="stylesheet" href="9-webstore.css" />
+<h1>Existing Page</h1>
+<div id="store"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let request = new XMLHttpRequest();
+    let store = document.getElementById('store');
+    request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products')
+    request.addEventListener('load', event => {
+      store.innerHTML = request.response;
+    })
+    request.send();
+
+    store.addEventListener('click', event => {
+      if (event.target.tagName === 'A') {
+        event.preventDefault();
+        let request = new XMLHttpRequest();
+        let pathName = event.target.pathname;
+        request.open('GET', `https://ls-230-web-store-demo.herokuapp.com${pathName}`);
+        request.addEventListener('load', event => {
+          store.innerHTML = request.response;
+        })
+        request.send();
+      }
+    })
+
+    store.addEventListener('submit', event => {     // Use Event Delegation and add the Listener to `store`
+      event.preventDefault();
+      let form = document.querySelector('form');    // event.target
+      let data = new FormData(form);
+      let path = form.getAttribute('action');
+      let request = new XMLHttpRequest();
+      request.open('POST', `https://ls-230-web-store-demo.herokuapp.com${path}`);
+      request.setRequestHeader('Authorization', 'token AUTH_TOKEN');
+      request.addEventListener('load', event => {
+        store.innerHTML = request.response;
+      })
+      request.send(data);
+    });
+  });
+</script>
+
+<!-- 
+1. Use JavaScript to fetch the list of products from the web store, and insert it into the div with an id of store. 
+   The Webstore Products are located at the following URL: 'https://ls-230-web-store-demo.herokuapp.com/products'
+
+2. Add an Event Handler that listens for clicks within the embedded content. 
+   The handler should load the new page with XMLHttpRequest and insert it into the current page.
+
+3. What prevents the form submission from working? Investigate the problem with the web developer tools in your browser.
+   Answer - The form submits a POST request to http://s.codepen.io/products/1 and receives a 404 response
+
+4. Make changes to the JavaScript to submit the edit form using XMLHttpRequest. Once your code is working, 
+   you should see the message — "You must be logged in to do that." — when you try to submit the form. 
+   Modify the code you wrote in the previous exercise to add an Authorization header to the XMLHttpRequest 
+   before sending it. The header's value should be token AUTH_TOKEN.
+-->

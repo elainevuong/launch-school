@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="site.css" />
+<div class="text-field">
+  <div class="content"></div>
+</div>
+
+<script>
+  let cursorInterval;
+  let focusedTextField;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    let textField = document.querySelector('.text-field');
+
+    textField.addEventListener('click', function(event) {
+      event.stopPropagation();
+
+      focusedTextField = textField;
+      textField.classList.add('focused');
+
+      /*
+      if (!cursorInterval) {
+        cursorInterval = setInterval(() => textField.classList.toggle('cursor'), 500);
+      }
+      */
+
+      cursorInterval = cursorInterval || setInterval(() => textField.classList.toggle('cursor'), 500);
+      
+    });
+  });
+
+  document.addEventListener('keydown', event => {
+
+    if (focusedTextField) {
+      let contentDiv = focusedTextField.querySelector('.content');
+      let text;
+      if (event.key === 'Backspace') {
+        text = contentDiv.textContent.slice(0, -1);
+        contentDiv.textContent = text;
+      } else {
+        text = event.key;
+        contentDiv.textContent += text;
+      }
+    }
+
+    
+
+  });
+
+  document.addEventListener('click', event => {
+    clearInterval(cursorInterval);
+    if (focusedTextField) {
+      focusedTextField.classList.remove('focused');
+      focusedTextField.classList.remove('cursor');
+      focusedTextField = null;
+    }
+  });
+</script>

@@ -1,0 +1,10 @@
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="9partials.js"></script>
+
+<div id="person-id">
+	<script id="person-template" type="text/x-handlebars-template">
+		{{#each persons}}
+		  {{>person person=.}}
+		{{/each}}
+	</script>
+</div>

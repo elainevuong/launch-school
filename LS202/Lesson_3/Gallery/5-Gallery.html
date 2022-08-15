@@ -1,0 +1,73 @@
+<!--
+  Our goal is to end up with the five pictures arranged in a 3 row by 2 column grid, with the final 
+  grid element empty. All images should have the same width and should fit horizontally within 
+  the browser window. We'll let you do most of the work.
+-->
+
+<style>
+  body, main, figure, figcaption, img {
+    margin: 0;
+    padding: 0;
+  }
+  figure {
+    width: 50%;
+    margin: 50px 0;
+    padding: 0 50px;
+    /*outline: 1px solid grey;*/
+    display: inline-block;
+    box-sizing: border-box;
+    
+  }
+  img {
+    width: 100%;
+  }
+  figcaption {
+    font-size: 1rem;
+    text-align: center;
+  }
+  main {
+    font-size: 0;
+    background-image: url('https://d3jtzah944tvom.cloudfront.net/202/images/lesson_3/gradient-background.png');
+  }
+</style>
+<main>
+  <figure>
+    <a href="Flowers.png" target="_blank">
+      <img src="Flowers.png"
+         alt="Flowers" />
+    </a>
+    <figcaption>Beautiful Purple Flower!</figcaption>
+  </figure>
+
+  <figure>
+    <a href="Food.png" target="_blank">
+      <img src="Food.png"
+          alt="Guacamole" />
+    </a>
+    <figcaption>Guacamole</figcaption>
+  </figure>
+
+  <figure>
+    <a href="Friends.jpeg" target="_blank">
+      <img src="Friends.jpeg"
+         alt="Two Girls" />
+    </a>
+    <figcaption>Elaine & Wendy</figcaption>
+  </figure>
+
+  <figure>
+    <a href="Nietzsche.jpeg" target="_blank">  
+      <img src="Nietzsche.jpeg"
+         alt="Nietzsche Quote" />
+    </a>  
+    <figcaption>Nietzsche</figcaption>
+  </figure>
+
+  <figure>
+    <a href="Print.jpeg" target="_blank">
+      <img src="Print.jpeg"
+           alt="Cute Card" />
+    </a>    
+    <figcaption>Birthday Card</figcaption>
+  </figure>
+</main>

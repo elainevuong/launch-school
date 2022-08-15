@@ -1,0 +1,17 @@
+<!-- Adding a new book to a book-catalog demo application. using POST -->
+<script>
+  let request = new XMLHttpRequest();
+
+  request.open('POST', 'https://ls-230-book-catalog.herokuapp.com/books');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  let data = 'title=Effective%20JavaScript&author=David%20Herman';
+  
+  request.addEventListener('load', () => {   
+    if (request.status === 201) {
+      console.log(`Book was added to the Catalog: ${request.responseText}`);
+    }
+  })
+
+  request.send(data);
+</script>

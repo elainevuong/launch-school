@@ -1,0 +1,43 @@
+<style>
+  section {
+    background-color: yellow;
+    border: 1px solid red;
+    box-sizing: content-box;
+    display: inline-block;
+    height: 400px;
+    margin: 0;
+    padding: 20px;
+    width: 900px;
+  }
+
+  article {
+    background-color: lime;
+    border: 1px solid blue;
+    display: inline-block;   /* allows the blocks to be side by side */
+    box-sizing: border-box;  /* border-box - includes the padding and the border */
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+    width: 50%;
+  }
+</style>
+<section>
+  <article>content</article>
+  <article>more content</article>
+</section>
+
+<!-- 
+  When you put the article elements on separate lines in the HTML, the browser sees the whitespace 
+  (a newline and several spaces in this case) between the two articles. It then collapses that 
+  whitespace into a single space character and uses the result as content between the elements. 
+
+  Thus, the two articles require 900 pixels total plus a few more pixels to account for the space 
+  character. Since that exceeds the 900-pixel width of the section, the two articles no longer fit on the same line.
+
+  Due to the whitespace characters! Be careful when using inline-blocks and whitespace characters. 
+
+  This kind of problem often occurs when one of the elements is an inline-block; the rest of the time, 
+  the extra space typically doesn't matter. Aside from placing the two tags up against each other to 
+  eliminate the whitespace, there are several other techniques you will see later that let you 
+  remove the space or make it invisible.
+-->

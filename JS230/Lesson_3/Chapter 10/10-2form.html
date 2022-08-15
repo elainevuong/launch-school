@@ -1,0 +1,43 @@
+<!-- Using the following HTML Form, use a POST Request to submit the Form Information to
+     'https://ls-230-book-catalog.herokuapp.com/books' using POST -->
+
+<form id="form">
+  <p><label>Title: <input type="text" name="title"></label></p>
+  <p><label>Author: <input type="text" name="author"></label></p>
+  <p><button type="submit">Submit</button></p>
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let form = document.getElementById('form');
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();                            // Prevent the Default Refreshing of the Page
+      let dataObj = {};
+
+      for (let input of form.elements) {
+        if (input.type !== 'submit') {
+          let name = input.name;
+          let value = input.value;
+          dataObj[name] = encodeURIComponent(value);
+        }
+      }
+
+      let data = Object.keys(dataObj).map(key => `${key}=${dataObj[key]}`).join('&');
+      
+      let request = new XMLHttpRequest();
+      request.open('POST', `https://ls-230-book-catalog.herokuapp.com/books`);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      request.addEventListener('load', event => {
+        if (request.status === 201) {
+          console.log(event.target.response);
+          console.log(`Book added successfully!`);
+        }
+      })
+
+      request.send(data);
+    })
+  })
+
+
+</script>

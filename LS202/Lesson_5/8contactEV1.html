@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Contact Form</title>
+		<meta charset="utf-8" />
+    <style>
+      form {
+        padding: 0;
+        margin: 0;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+	</head>
+	<body>
+    <form action="#" method="post">
+      <fieldset>
+        <ul>
+        <li><label for="first_name">First Name</label></li>
+        <li><input type="text" name="first_name" id="first_name" /></li>
+
+        <li><label for="last_name">Last Name</label></li>
+        <li><input type="text" name="last_name" id="last_name" /></li>
+
+        <li><label for="email">Email Address</label></li>
+        <li><input type="email" name="email" id="email" placeholder="email@domain.com"/></li>      
+
+        <li><label for="city">City</label></li>
+        <li><input type="text" name="city" id="city" /></li>
+
+        <li><label for="state">State</label></li>
+        <li>
+          <select name="state">
+            <option>AK</option>
+            <option>AL</option>
+            <option>AR</option>
+            <option>AZ</option>
+            <option>CA</option>
+            <option>CO</option>
+            <option>CT</option>
+            <option>DC</option>
+            <option>DE</option>
+            <option>FL</option>
+            <option>GA</option>
+            <option>HI</option>
+            <option>IA</option>
+            <option>ID</option>
+            <option>IL</option>
+            <option>IN</option>
+            <option>KS</option>
+            <option>KY</option>
+            <option>LA</option>
+            <option>MA</option>
+            <option>MD</option>
+            <option>ME</option>
+            <option>MI</option>
+            <option>MN</option>
+            <option>MO</option>
+            <option>MS</option>
+            <option>MT</option>
+            <option>NC</option>
+            <option>ND</option>
+            <option>NE</option>
+            <option>NH</option>
+            <option>NJ</option>
+            <option>NM</option>
+            <option>NV</option>
+            <option>NY</option>
+            <option>OH</option>
+            <option>OK</option>
+            <option>OR</option>
+            <option>PA</option>
+            <option>RI</option>
+            <option>SC</option>
+            <option>SD</option>
+            <option>TN</option>
+            <option>TX</option>
+            <option>UT</option>
+            <option>VA</option>
+            <option>VT</option>
+            <option>WA</option>
+            <option>WI</option>
+            <option>WV</option>
+            <option>WY</option>
+          </select>
+        </li>
+
+        <li><label for="zip">Zip Code</label></li>
+        <li><input type="text" name="zip" id="zip" pattern="[0-9]{5}" /></li>
+
+        <li><label for="color">Which of these colors do you like best?</label></li>
+        <li>
+          <select name="color" id="color">
+            <option selected>Silver</option>
+            <option>Purple</option>
+            <option>Red</option>
+            <option>Lavender</option>
+          </select>
+        </li>
+
+        <li>Which web technologies do you want to learn?</li>
+        <li><input type="checkbox" name="technology" value="python" /><label>Python</label></li>
+        <li><input type="checkbox" name="technology" value="rust" /><label>Rust</label></li>
+        <li><input type="checkbox" name="technology" value="javascript" /><label>JavaScript</label></li>
+        <li><input type="checkbox" name="technology" value="sql" /><label>SQL</label></li>
+        <li><input type="checkbox" name="technology" value="git" /><label>Git</label></li>
+
+        <li>Comments</li>
+        <li><textarea rows="6" cols="80"></textarea></li>
+      </ul>
+        <input type="hidden" value="2018-02-17" />
+        <input type="submit" value="Send" />
+        <input type="reset" />
+      </fieldset>
+    </form>
+	</body>
+</html>

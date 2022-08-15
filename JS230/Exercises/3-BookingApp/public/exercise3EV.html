@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise 3</title>
+    <style>
+      dl {
+        border: 3px double #ccc; /* adds a 3pixel thick double border of a light grey colour */
+        padding: 0.5em;            /* provides padding around the border */
+      }
+      dt {
+        float: left;
+        clear: left;
+        width: 100px; /* sets the width of the entire dt element */
+        text-align: right;
+        font-weight: bold;
+        color: #f0595b;
+      }
+      dt::after {
+        content: ":"; /* adds the colon after each dt element */
+      }
+      dd {
+        margin: 0 0 0 110px; /* top, right, bottom, left */
+        padding: 0 0 0.5em 0; /* top right bottom left */
+      }
+      input[type="submit"] {
+        color: white;
+        background: #f0595b;
+        border-color: #f0595b;
+        width: 100px;
+        height: 50px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post" action="/api/staff_members">
+      <dl>
+        <dt><label for="email">Email</label></dt>
+        <dd><input type="email" id="email" name="email"></dd>
+
+        <dt><label for="name">Name</label></dt>
+        <dd><input type="text" id="name" name="name"></dd>
+      </dl>
+      <input type="submit">
+    </form>
+  </body>
+</html>
+<script>
+  let form = document.querySelector('form');
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    let request = new XMLHttpRequest();
+    let data = new FormData(form);
+    request.open(`${form.method}`, `${form.action}`);
+    // request.responseType = 'json';
+    request.addEventListener("load", event => {
+      if (request.status === 201) {
+        let response = JSON.parse(request.response);
+        alert(`Successfully created staff with id: ${response.id}`);
+      } else {
+        alert(request.response);
+      }
+    })
+    request.send(data);
+  })
+</script>

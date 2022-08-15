@@ -1,0 +1,70 @@
+<h1>Bookings</h1>
+<ul id="bookedList"></ul>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    main();
+
+    async function main() {
+      let bookedList = document.querySelector("#bookedList");
+      let bookedDates = await getBookedDates();
+      showBookingDates(bookedDates, bookedList);
+      bookedList.addEventListener("click", showBookingDetails);
+    }
+
+    function getBookedDates() {
+      return new Promise(resolve => {
+        let request = new XMLHttpRequest();
+        request.open("GET", "/api/bookings");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.responseType = "json";
+        request.send();
+
+        request.addEventListener("load", () => {
+          resolve(request.response);
+        })
+      })
+    }
+
+    function showBookingDates(bookedDates, bookedList) {
+      bookedDates.forEach(booking => createDates(booking, bookedList));
+    }
+
+    function createDates(booking, bookedList) {
+      let date = document.createElement('li');
+      date.innerHTML = booking;
+      bookedList.appendChild(date);
+    }
+
+    async function showBookingDetails(event) {
+      if (event.target.nodeName === 'LI') {
+        let clickedDateString = event.target.innerHTML;
+        let dateDetails = await getDateDetails(clickedDateString);
+        createDateDetails(event.target, dateDetails);
+      }
+    }
+
+    function getDateDetails(date) {
+      return new Promise(resolve => {
+        let request = new XMLHttpRequest();
+        request.open("GET", `/api/bookings/${date}`);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send();
+
+        request.addEventListener("load", () => {
+          resolve(JSON.parse(request.response));
+        })
+      })
+    }
+
+    function createDateDetails(outerLI, dateDetails) {
+      let innerUL = document.createElement('ul');
+      dateDetails.forEach(date => {
+        let innerLI = document.createElement('li');
+        let innerLIText = date.join(' | ');
+        innerLI.innerHTML = innerLIText;
+        innerUL.appendChild(innerLI);
+      })
+      outerLI.appendChild(innerUL);
+    }
+  })
+</script>

@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="9-webstore.css" />
+<h1>Existing Page</h1>
+<div id="store"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let request = new XMLHttpRequest();
+    let store = document.getElementById('store');
+    request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com/products')
+    request.addEventListener('load', event => {
+      store.innerHTML = request.response;
+    })
+    request.send();
+
+    // Elaine's Solution
+    store.addEventListener('click', event => {
+      if (event.target.tagName === 'A') {
+        event.preventDefault();
+        let request = new XMLHttpRequest();
+        let pathName = event.target.pathname;
+        request.open('GET', `https://ls-230-web-store-demo.herokuapp.com${pathName}`);
+        request.addEventListener('load', event => {
+          store.innerHTML = request.response;
+        })
+        request.send();
+      }
+    })
+
+    /* Launch School Solution
+    store.addEventListener('click', event => {
+      let target = event.target;
+      if (target.tagName !== 'A') {
+        return;
+      }
+
+      event.preventDefault();
+
+      let request = new XMLHttpRequest();
+      request.open('GET', 'https://ls-230-web-store-demo.herokuapp.com' + target.getAttribute('href'));
+      request.addEventListener('load', event => store.innerHTML = request.response);
+      request.send();
+    });
+    */
+  })
+</script>
+
+<!-- 
+  Fetch the list of products from the web store 
+  'https://ls-230-web-store-demo.herokuapp.com/products'
+  and insert it in the div with an id of store
+
+  Add an event handler that listens for clicks within the embedded content. 
+  The handler should load the new page with XMLHttpRequest and insert it into the current page. 
+-->

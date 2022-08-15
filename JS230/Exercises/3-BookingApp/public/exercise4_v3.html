@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 4</title>
+  <style>
+    .buttons {
+      color: white;
+      width: 100px;
+      height: 50px;
+      border-radius: 5px;
+    }
+    #addButton {
+      background: rgb(127, 180, 219);
+      border: rgb(127, 180, 219);
+    }
+    #submitButton {
+      background: #f0595b;
+      border: #f0595b;
+    }
+    dl {
+      padding: 0.5em;      
+    }
+    legend {
+      font-weight: bold;
+    }
+    dt {
+      float: left;
+      clear: left;
+      width: 100px;         /* sets the width of the entire dt element */
+      text-align: right;
+      font-weight: bold;
+      color: #f0595b;
+    }
+    dt::after {
+      content: ":";         /* adds the colon after each dt element */
+    }
+    dd {
+      margin: 0 0 0 110px;  /* top, right, bottom, left */
+      padding: 0 0 0.5em 0; 
+    }
+    select {
+      width: 145px;
+    }
+    fieldset {
+      margin: 1em 0 1em 0;
+    }
+  </style>
+</head>
+<body>
+  <button class="buttons" id="addButton">Add more schedules</button>
+  <form id="form" method="post" action="/api/schedules">
+    <fieldset>
+      <legend>Schedule 1</legend>
+      <dl>
+        <dt><label for="staff_id">Staff Name</label></dt>
+        <dd><select name="staff_id" id="staff_id"></select></dd>
+        <dt><label for="date">Date</label></dt>
+        <dd><input type="text" id="date" name="date" placeholder="mm-dd-yy"></dd>
+        <dt><label for="time">Time</label></dt>
+        <dd><input type="text" id="time" name="time" placeholder="hh:mm"></dd>
+      </dl>
+    </fieldset>
+  </form>
+  <input id="submitButton" type="submit" class='buttons'>
+</body>
+</html>
+<script> // To be Completed...
+  document.addEventListener("DOMContentLoaded", () => {
+    main();
+
+    async function main() {
+      let staffSchedules = await getStaffMembers();
+      makeStaffSelect(staffSchedules);
+    }
+
+    function getStaffMembers() {
+      return new Promise(resolve => {
+        let request = new XMLHttpRequest();
+        request.open("GET", "/api/staff_members");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send();
+
+        request.addEventListener("load", event => {
+          if (request.status === 200) {
+            resolve(JSON.parse(request.response));
+          }
+        });
+      });
+    }
+
+    function makeStaffSelect(schedules) {
+      let select = document.getElementById("staff_id");
+      schedules.forEach(schedule => {
+        let option = new Option(schedule.name, schedule.id)
+        select.appendChild(option);
+      })
+    }    
+  })
+</script>

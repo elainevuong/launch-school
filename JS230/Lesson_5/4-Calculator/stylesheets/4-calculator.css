@@ -1,0 +1,24 @@
+html, body {
+  padding: 25px 0;
+  margin: 0;
+  background: #780E24;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+p {
+  font-size: 1.6em;
+  color: #16997c;
+}
+
+main {
+  display: block;
+  max-width: 450px;
+  padding: 20px;
+  margin: 0 auto;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+input {
+  max-width: 50px;
+}

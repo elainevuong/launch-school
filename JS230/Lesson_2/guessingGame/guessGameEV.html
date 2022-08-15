@@ -1,0 +1,53 @@
+<main>
+  <h1>Number Guessing Game</h1>
+  <link rel="stylesheet" href="site.css" />
+  <p>Loading...</p>
+  <form action="" method="get">
+    <fieldset>
+      <input type="text" id="guess" maxlength="3" />
+      <input type="submit" value="Guess" />
+    </fieldset>
+  </form>
+  <a href="#">New game</a>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    let messageArea = document.querySelector('p');
+    let inputArea = document.querySelector('[type=text]');
+    let answer = generateNumber();
+    let form = document.querySelector('form');
+    let newGame = document.querySelector('a');
+    let submitButton = document.querySelector('[type=submit]');
+    messageArea.textContent = `Guess a number from 1 to 100`;
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();                     // prevents the default behaviour
+      let guess = parseInt(inputArea.value, 10);
+
+      if (guess > answer) {
+        messageArea.textContent = `Your guess is too high!`
+      } else if (guess < answer) {
+        messageArea.textContent = `Your guess is too low!`
+      } else {
+        messageArea.textContent = `Tada! You have guessed my number!`
+        submitButton.disabled = true;
+      }
+    });
+    
+    newGame.addEventListener('click', eveent => {
+      event.preventDefault();
+      answer = generateNumber();
+      messageArea.textContent = 'Loading a new game...';
+      setTimeout( () => {
+        messageArea.textContent = `Guess a number from 1 to 100`;
+      }, 2000);
+    })
+
+    function generateNumber() {
+      return Math.floor(100 * Math.random() + 1);
+    }
+
+
+  });
+</script>

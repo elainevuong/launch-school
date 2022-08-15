@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Contact Form</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <dl>
+          <dt>
+            <label for="first_name">First Name</label>
+          </dt>
+          <dd>
+            <input type="text" name="first_name" id="first_name" />
+          </dd>
+          <dt>
+            <label for="email">Email Address</label>
+          </dt>
+          <dd>
+            <input type="email" name="email" id="email" />
+          </dd>
+          <dt>
+            <label for="state">State</label>
+          </dt>
+          <dd>
+            <select name="state" id="state">
+              <option>AK</option>
+              <option>AL</option>
+              <option>AR</option>
+              <option>AZ</option>
+              <option>CA</option>
+              <option>CO</option>
+              <option>CT</option>
+              <option>DC</option>
+              <option>DE</option>
+              <option>FL</option>
+              <option>GA</option>
+              <option>HI</option>
+              <option>IA</option>
+              <option>ID</option>
+              <option>IL</option>
+              <option>IN</option>
+              <option>KS</option>
+              <option>KY</option>
+              <option>LA</option>
+              <option>MA</option>
+              <option>MD</option>
+              <option>ME</option>
+              <option>MI</option>
+              <option>MN</option>
+              <option>MO</option>
+              <option>MS</option>
+              <option>MT</option>
+              <option>NC</option>
+              <option>ND</option>
+              <option>NE</option>
+              <option>NH</option>
+              <option>NJ</option>
+              <option>NM</option>
+              <option>NV</option>
+              <option>NY</option>
+              <option>OH</option>
+              <option>OK</option>
+              <option>OR</option>
+              <option>PA</option>
+              <option>RI</option>
+              <option>SC</option>
+              <option>SD</option>
+              <option>TN</option>
+              <option>TX</option>
+              <option>UT</option>
+              <option>VA</option>
+              <option>VT</option>
+              <option>WA</option>
+              <option>WI</option>
+              <option>WV</option>
+              <option>WY</option>
+            </select>              
+          </dd>
+          <dt>
+            <label for="zip">Zip</label>
+          </dt>
+          <dd>
+            <input type="text" name="zip" id="zip" pattern="[0-9]{5}" />
+          </dd>
+        </dl>
+        <p> Select your Favourite Color:</p>
+        <ul>
+          <li>
+            <label><input type="radio" value="silver" name="color" checked />Silver</label>
+          </li>
+          <li>
+            <label><input type="radio" value="blue" name="color" />Blue</label>
+          </li>
+          <li>
+            <label><input type="radio" value="purple" name="color" />Purple</label>
+          </li>
+          <li>
+            <label><input type="radio" value="gold" name="color" />Gold</label>
+          </li>          
+        </ul>
+        <p> Select Your Superpowers: </p>
+        <ul>
+          <li>
+            <label><input type="checkbox" value="html" name="html" />HTML</label>
+          </li>
+          <li>
+            <label><input type="checkbox" value="css" name="css" />CSS</label>
+          </li>
+          <li>
+            <label><input type="checkbox" value="javascript" name="javascript" />JavaScript</label>
+          </li>
+          <li>
+            <label><input type="checkbox" value="rust" name="rust" />Rust</label>
+          </li>    
+        </ul>
+        <label for="comments">Comments</label>
+        <textarea rows="6" cols="80" name="comments" id="comments"></textarea>
+        <input type="hidden" value="2015-01-01" name="timestamp" />
+        <input type="submit" value="Send" />
+        <input type="reset" />
+      </fieldset>
+    </form>
+  </body>
+</html>
